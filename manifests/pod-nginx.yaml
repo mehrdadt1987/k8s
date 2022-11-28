@@ -4,6 +4,7 @@ metadata:
   name: mynginx
   labels:
     app: nginx
+    lbtype: clusterip
 spec:
   containers:
   - name: nginx
