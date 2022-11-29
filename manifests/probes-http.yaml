@@ -3,13 +3,22 @@ kind: Pod
 metadata:
   labels:
     test: liveness
-  name: liveness-http
+  name: probes-http
 spec:
   containers:
   - name: liveness
     image: registry.k8s.io/liveness
     args:
     - /server
+    readinessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+        httpHeaders:
+        - name: Custom-Header
+          value: Awesome
+      initialDelaySeconds: 3
+      periodSeconds: 3
     livenessProbe:
       httpGet:
         path: /healthz
